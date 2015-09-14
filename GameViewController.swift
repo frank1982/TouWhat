@@ -21,9 +21,9 @@ class GameViewController: UIViewController {
         var ball=UIImageView()
         ball.image=UIImage(named:"Ball")//step1:先设置图片内容...
         ball.sizeToFit()//step2:再设置大小...
-        ball.center=CGPoint(x:WIDTH/2-80,y:HEIGHT/2+80)//step3:最后设置位置...
+        ball.center=CGPoint(x:50,y:HEIGHT/2+80)//step3:最后设置位置...
         self.view.addSubview(ball)
-
+        
         //shoot the ball...
         shootBall(ball)
     }
@@ -45,7 +45,7 @@ class GameViewController: UIViewController {
         UIView.commitAnimations()
         */
         
-        
+        /*直线移动...
         let moveAnimation = CABasicAnimation(keyPath: "position")
         moveAnimation.fromValue=NSValue(CGPoint: ball.center)
         moveAnimation.toValue=NSValue(CGPoint: self.view.viewWithTag(1001)!.center)
@@ -53,7 +53,21 @@ class GameViewController: UIViewController {
         moveAnimation.fillMode=kCAFillModeForwards
         moveAnimation.duration=1
         ball.layer.addAnimation(moveAnimation, forKey: nil)
+        */
         
+        var path=CGPathCreateMutable()
+        var startPoint=ball.center
+        var endPoint=CGPoint(x:self.view.viewWithTag(1001)!.center.x,y:self.view.viewWithTag(1001)!.center.y+20)
+        var middlePoint=CGPoint(x: (endPoint.x+startPoint.x)/2, y: (endPoint.y-80))
+        CGPathMoveToPoint(path, nil, startPoint.x, startPoint.y)
+        CGPathAddQuadCurveToPoint(path, nil, middlePoint.x, middlePoint.y, endPoint.x, endPoint.y)
+        var newAnimation = CAKeyframeAnimation(keyPath: "position")
+        newAnimation.removedOnCompletion=false
+        newAnimation.path=path
+        newAnimation.duration=1
+        newAnimation.fillMode=kCAFillModeForwards
+        ball.layer.addAnimation(newAnimation, forKey: "postion")
+
         
     }
     
