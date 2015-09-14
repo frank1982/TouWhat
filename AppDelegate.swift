@@ -38,13 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window?.rootViewController!.view.bringSubviewToFront(imageView)
         
-        UIView.animateWithDuration(2.0, animations: {
+        UIView.animateWithDuration(1.0, animations: {
             ()-> Void in
-            imageView.alpha=2.0
+            imageView.alpha=1.0
             
             }, completion: {
                 (finished:Bool) -> Void in
-                sleep(3)
+                sleep(2)
                 imageView.removeFromSuperview()
                 self.window!.rootViewController=destinationVew
              
