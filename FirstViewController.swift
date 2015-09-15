@@ -1,20 +1,15 @@
-//
-//  FirstViewController.swift
-//  TouWhat
-//
-//  Created by frank on 15/9/15.
-//  Copyright © 2015年 frank. All rights reserved.
-//
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class FirstViewController: UIViewController,UITabBarDelegate {
 
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor=UIColor.greenColor()
-        // Do any additional setup after loading the view.
+        self.view.backgroundColor=UIColor.redColor()
+        
     }
 
     override func didReceiveMemoryWarning() {

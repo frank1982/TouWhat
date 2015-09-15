@@ -96,31 +96,26 @@ class GameViewController: UIViewController {
     }
     func drawMoreBalls(){
         
-        /*碰撞...
-        var groundView=UIImageView(frame:CGRectMake(0,400,400,20))
-        groundView.backgroundColor=UIColor.grayColor()
-        self.view.addSubview(groundView)
-        */
-        
+        var ballArray=[UIImageView]()
         var newBall1=UIImageView()
         newBall1.image=UIImage(named:"Ball")//step1:先设置图片内容...
         newBall1.sizeToFit()//step2:再设置大小...
-        newBall1.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x,y:self.view.viewWithTag(1001)!.center.y+40)
+        newBall1.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x,y:self.view.viewWithTag(1001)!.center.y+45)
         self.view.addSubview(newBall1)
         var newBall2=UIImageView()
         newBall2.image=UIImage(named:"Ball")//step1:先设置图片内容...
         newBall2.sizeToFit()//step2:再设置大小...
-        newBall2.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x-5,y:self.view.viewWithTag(1001)!.center.y+40)
+        newBall2.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x-5,y:self.view.viewWithTag(1001)!.center.y+45)
         self.view.addSubview(newBall2)
-        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "createNewBall", userInfo: nil, repeats: false)
         
         var newBall3=UIImageView()
         newBall3.image=UIImage(named:"Ball")//step1:先设置图片内容...
         newBall3.sizeToFit()//step2:再设置大小...
-        newBall3.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x+5,y:self.view.viewWithTag(1001)!.center.y+40)
+        newBall3.center=CGPoint(x:self.view.viewWithTag(1001)!.center.x+5,y:self.view.viewWithTag(1001)!.center.y+45)
         self.view.addSubview(newBall3)
-        
-        
+        ballArray.append(newBall1)
+        ballArray.append(newBall2)
+        ballArray.append(newBall3)
         //篮筐始终显示在最外面...
         self.view.bringSubviewToFront(self.view.viewWithTag(1002)!)
         
@@ -168,30 +163,51 @@ class GameViewController: UIViewController {
         animator.addBehavior(itemBehavior)
         
         //碰撞检测...
-        var count=0
+        var endFlag=[false,false,false]
         collision.action={
             
-            print("NO \(count) collision...")
-            count++
+            for(var i=0;i<3;i++){
+                
+                var speed=self.itemBehavior.linearVelocityForItem(ballArray[i])
+                if speed.x==0 && speed.y==0 && ballArray[i].center.y>=(HEIGHT-150){
+                    
+                    
+                    endFlag[i]=true
+                }
+                if endFlag[0]==true && endFlag[1]==true && endFlag[2]==true{
+                    
+                    print("all stop...")
+                    var firstViewController=FirstViewController()
+                    /*设置被弹出的模式...
+                    firstViewController.modalTransitionStyle=UIModalTransitionStyle.FlipHorizontal
+                    self.presentViewController(firstViewController, animated: true, completion: nil)
+                    */
+                    
+                    //翻页效果...
+                    UIView.beginAnimations("Curl", context: nil)
+                    UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+                    UIView.setAnimationDuration(0.8)
+                    UIView.setAnimationTransition(UIViewAnimationTransition.CurlUp, forView: self.view, cache: true)
+                    
+                    var viewList:[UIView]=self.view.subviews
+                    var view:UIView
+                    for view in viewList {
+                        
+                        view.removeFromSuperview()
+                    }
+                    self.view.insertSubview(firstViewController.view, atIndex: 0)
+                    UIView.commitAnimations()
+                }
+                
+            }
         }
         //获取速度...
         //itemBehavior.linearVelocityForItem(<#T##item: UIDynamicItem##UIDynamicItem#>)
         
         //newBall1.addObserver(self, forKeyPath: "center", options: NSKeyValueObservingOptions.New, context: nil)
-        
 
-       
-        
     }
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        
-        print("kvo")
-    }
-    func createNewBall(){
-        
-        
-    }
-   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
