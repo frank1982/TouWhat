@@ -167,9 +167,25 @@ class GameViewController: UIViewController {
         itemBehavior.elasticity=0.8
         animator.addBehavior(itemBehavior)
         
-        //var view=FirstViewController()
-        //self.presentViewController(view, animated: true, completion: nil)
+        //碰撞检测...
+        var count=0
+        collision.action={
+            
+            print("NO \(count) collision...")
+            count++
+        }
+        //获取速度...
+        //itemBehavior.linearVelocityForItem(<#T##item: UIDynamicItem##UIDynamicItem#>)
+        
+        //newBall1.addObserver(self, forKeyPath: "center", options: NSKeyValueObservingOptions.New, context: nil)
+        
 
+       
+        
+    }
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        
+        print("kvo")
     }
     func createNewBall(){
         
