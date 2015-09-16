@@ -177,17 +177,19 @@ class GameViewController: UIViewController {
                 if endFlag[0]==true && endFlag[1]==true && endFlag[2]==true{
                     
                     print("all stop...")
-                    var firstViewController=FirstViewController()
+                    var mainViewController=MainViewController()
                     /*设置被弹出的模式...
-                    firstViewController.modalTransitionStyle=UIModalTransitionStyle.FlipHorizontal
-                    self.presentViewController(firstViewController, animated: true, completion: nil)
+                    mainViewController.modalTransitionStyle=UIModalTransitionStyle.FlipHorizontal
+                    self.presentViewController(mainViewController, animated: true, completion: nil)
                     */
                     
-                    //翻页效果...
+                    //翻页效果...如果使用该效果后面的viewcontroller存在问题...主要是没有更换rootviewcontroller...
+                    /*
                     UIView.beginAnimations("Curl", context: nil)
                     UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
                     UIView.setAnimationDuration(0.8)
                     UIView.setAnimationTransition(UIViewAnimationTransition.CurlUp, forView: self.view, cache: true)
+                    
                     
                     var viewList:[UIView]=self.view.subviews
                     var view:UIView
@@ -195,8 +197,19 @@ class GameViewController: UIViewController {
                         
                         view.removeFromSuperview()
                     }
-                    self.view.insertSubview(firstViewController.view, atIndex: 0)
+                    self.view.insertSubview(mainViewController.view, atIndex: 0)
                     UIView.commitAnimations()
+                    */
+                    
+                    //另一种翻页效果...
+                    var animation=CATransition()
+                    animation.duration=1.0
+                    animation.timingFunction=CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseIn)
+                    animation.type="pageCurl"
+                    animation.subtype=kCATransitionFromBottom
+                    self.view.window!.layer.addAnimation(animation, forKey: nil)
+                    self.presentViewController(mainViewController, animated: false, completion: nil)
+                    
                 }
                 
             }

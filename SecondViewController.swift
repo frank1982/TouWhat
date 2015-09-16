@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  TouWhat
 //
 //  Created by frank on 15/9/16.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title="First"
+        self.title="Second"
         // Do any additional setup after loading the view.
     }
 
