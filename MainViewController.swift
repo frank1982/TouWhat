@@ -9,13 +9,25 @@ class MainViewController: UITabBarController{
 
         var view1=FirstViewController()
         var view2=SecondViewController()
+        var view3=ThirdViewController()
+        var view4=FourthViewController()
         var nv1=UINavigationController(rootViewController: view1)
         var nv2=UINavigationController(rootViewController: view2)
+        var nv3=UINavigationController(rootViewController: view3)
+        var nv4=UINavigationController(rootViewController: view4)
+
         self.addChildViewController(nv1)
         self.addChildViewController(nv2)
+        self.addChildViewController(nv3)
+        self.addChildViewController(nv4)
+        
+        /*也可以放这里设置...
         nv1.tabBarItem=UITabBarItem(title: "One", image: nil, tag: 0)
         nv2.tabBarItem=UITabBarItem(title: "Two", image: nil, tag: 1)
-        
+        nv3.tabBarItem=UITabBarItem(title: "three", image: nil, tag: 2)
+        nv4.tabBarItem=UITabBarItem(title: "Four", image: nil, tag: 3)
+        */
+       
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         
