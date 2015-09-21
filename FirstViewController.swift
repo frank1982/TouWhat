@@ -13,6 +13,8 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
         super.viewDidLoad()
         
         self.view.backgroundColor=UIColor.whiteColor()
+        self.navigationController?.tabBarItem.title="最佳产品"
+        
         showHead()
 
         //显示轮播...
