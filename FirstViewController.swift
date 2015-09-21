@@ -6,25 +6,39 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
     
     var scrollView:UIScrollView!
     var pageController:UIPageControl!
+    var _constant=Constant()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor=UIColor.whiteColor()
-        self.title="投一个"
-        self.navigationController?.navigationBar.titleTextAttributes=[NSForegroundColorAttributeName : UIColor.whiteColor(),
-        NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 24.0)!]
-        self.navigationController!.navigationBar.barTintColor=UIColor(red: CGFloat(238) / 255.0, green: CGFloat(0) / 255.0, blue: CGFloat(0) / 255.0, alpha: CGFloat(1))
-        self.navigationController!.navigationBar.translucent = false//取消渐变效果...
+        showHead()
 
         //显示轮播...
         showScrollView()
         
         //show page controller...
         showPageController()
-        
-        showVisitorNumber()
+
   
+    }
+    func showHead(){
+        
+       
+        //self.title="投什么"
+        var titleView=UIImageView()
+        titleView.image=UIImage(named: "head")
+        titleView.sizeToFit()
+        titleView.frame.origin=CGPoint(x:10,y:0)
+        self.navigationController?.navigationBar.addSubview(titleView)
+        /*标题字体样式...
+        self.navigationController?.navigationBar.titleTextAttributes=[NSForegroundColorAttributeName : _constant._redColor,
+            NSFontAttributeName: UIFont(name: "Copperplate-Light", size: 24.0)!]
+        */
+        //需要下面这句否则没有头部...
+        self.navigationController!.navigationBar.translucent = false//取消渐变效果...
+        
     }
     func showScrollView(){
         
@@ -38,12 +52,16 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
         for(i=0;i<2;i++){
      
             var startX:CGFloat=self.view.frame.width*CGFloat(i)
-            var adView=UIView(frame: CGRectMake(startX, 0, self.view.frame.width, 150))
-            if (i == 0)
-            {adView.backgroundColor=UIColor.grayColor()}
-            if (i == 1)
-            {adView.backgroundColor=UIColor.yellowColor()}
-            self.scrollView.addSubview(adView)
+            //var adView=UIView(frame: CGRectMake(startX, 0, self.view.frame.width, 140))
+            if (i == 0){
+                var adView=AdView1(frame: CGRectMake(startX, 0, self.view.frame.width, 140))
+                self.scrollView.addSubview(adView)
+            }else{
+                
+                var adView=AdView2(frame: CGRectMake(startX, 0, self.view.frame.width, 140))
+                self.scrollView.addSubview(adView)
+            }
+
         }
         var scrollScopeWidth=self.view.frame.width*2
         //设置scrollView的最大范围...
@@ -54,14 +72,14 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
         self.scrollView.delegate = self
         
         //2秒翻页...
-        var timer=NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "turnNextView", userInfo: nil, repeats: true)
+        var timer=NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "turnNextView", userInfo: nil, repeats: true)
     }
     func showPageController(){
         
         pageController=UIPageControl()
         pageController.center=CGPointMake(self.view.frame.width/2, self.scrollView.frame.origin.y+120)
-        pageController.backgroundColor=UIColor.grayColor()
         pageController.numberOfPages=2
+     
         self.view.addSubview(pageController)
     }
     func showVisitorNumber(){
@@ -72,12 +90,10 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
     func turnNextView(){
         
         var pageNum:Int=self.pageController.currentPage
-         print("\(pageNum)")
         if (pageNum == 1)
             {pageNum=0}
         else
             {pageNum=pageNum+1}
-        print("\(pageNum)")
         var x:CGFloat = CGFloat(pageNum)*self.scrollView.frame.size.width
         self.scrollView.contentOffset = CGPointMake(x, 0)
     }
