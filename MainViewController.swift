@@ -31,6 +31,7 @@ class MainViewController: UITabBarController{
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         
+        print("tab bar item clicked...")
     }
 
     override func didReceiveMemoryWarning() {

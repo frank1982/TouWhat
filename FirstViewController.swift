@@ -2,18 +2,22 @@
 
 import UIKit
 
-class FirstViewController: UIViewController,UIScrollViewDelegate {
+class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegate {
     
     var scrollView:UIScrollView!
     var pageController:UIPageControl!
     var _constant=Constant()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor=UIColor.whiteColor()
+        
+        //设置tabbarItem...
         self.navigationController?.tabBarItem.title="最佳产品"
+        self.navigationController?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName : _constant._redColor,NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Selected)
+        showHead()
+        self.navigationController?.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Normal)
         
         showHead()
 
@@ -25,6 +29,7 @@ class FirstViewController: UIViewController,UIScrollViewDelegate {
 
   
     }
+
     func showHead(){
         
        
