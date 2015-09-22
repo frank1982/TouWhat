@@ -16,9 +16,9 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         //设置tabbarItem...
         self.navigationController?.tabBarItem.title="最佳产品"
         self.navigationController?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName : _constant._redColor,NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Selected)
-        showHead()
         self.navigationController?.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Normal)
         
+        //显示标题...
         showHead()
 
         //显示轮播...
@@ -26,8 +26,9 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         
         //show page controller...
         showPageController()
+        
+        showBestProduct()
 
-  
     }
 
     func showHead(){
@@ -116,5 +117,77 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         var x=scrollView.contentOffset.x
         var pageNum:Int=Int((x+scrollViewWidth/2)/scrollViewWidth)
         self.pageController.currentPage=pageNum
+    }
+    
+    func showBestProduct(){
+        
+        //固定数据...
+        var bestProductInfo:Dictionary<String,AnyObject> = Dictionary()
+        bestProductInfo["productName"]="草根钱包"
+        bestProductInfo["benifit"]="7%"
+        bestProductInfo["saveTimeType"]="活期"
+
+        
+        
+        var ContentH=self.view.frame.height-self.scrollView.frame.height
+        var ContentW=self.view.frame.width
+        var flag1=UIImageView()
+        flag1.image=UIImage(named:"flag1")
+        flag1.sizeToFit()
+        flag1.frame.origin=CGPoint(x:25,y:self.scrollView.frame.height+25)
+       
+        self.view.addSubview(flag1)
+        
+        //测量label尺寸，使得与顶部对齐
+        var str=NSString(string: String(bestProductInfo["productName"]!))
+        var size = str.sizeWithAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 24.0)!])
+        var productNameLabel=UILabel(frame:CGRectMake(flag1.frame.origin.x+25, flag1.frame.origin.y+2, size.width, size.height))
+        productNameLabel.text=str as String
+        productNameLabel.font=UIFont(name: _constant._textFont, size: 24)
+        productNameLabel.textAlignment = .Left
+        self.view.addSubview(productNameLabel)
+  
+        //收益率...
+        var str1=NSString(string: "test")
+        var size1 = str1.sizeWithAttributes([NSFontAttributeName: UIFont(name: _constant._digitalFont, size: 20.0)!])
+        var size2 = str1.sizeWithAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!])
+        var benifitLabel=UILabel(frame:CGRectMake(productNameLabel.frame.origin.x, productNameLabel.frame.origin.y+20+productNameLabel.frame.height, size1.width, size1.height))
+        benifitLabel.text=String(bestProductInfo["benifit"]!)
+        benifitLabel.textAlignment = .Left
+        benifitLabel.font=UIFont(name: _constant._digitalFont, size: 20)
+        benifitLabel.sizeToFit()
+        //benifitLabel.backgroundColor=UIColor.grayColor()
+        self.view.addSubview(benifitLabel)
+        var benifitLabelStatic=UILabel(frame:CGRectMake(benifitLabel.frame.origin.x+benifitLabel.frame.width+3, benifitLabel.frame.origin.y+benifitLabel.frame.height-size2.height-4, size2.width, size2.height))
+        benifitLabelStatic.text="年化收益率"
+        benifitLabelStatic.textAlignment = .Left
+        benifitLabelStatic.font=UIFont(name: _constant._textFont, size: 10)
+        benifitLabelStatic.sizeToFit()
+        //benifitLabelStatic.backgroundColor=UIColor.grayColor()
+        self.view.addSubview(benifitLabelStatic)
+        
+        //活定期...
+        //另一种水平对齐方法...
+        //bestProductInfo["saveTimeType"]
+        var label=UILabel()
+        label.text=String(bestProductInfo["saveTimeType"]!)
+        label.frame=label.textRectForBounds(label.frame, limitedToNumberOfLines: 0)
+        label.font=UIFont(name: _constant._textFont, size: 20)
+        label.sizeToFit()
+        label.frame.origin=CGPoint(x:ContentW/2+25,y:benifitLabelStatic.frame.origin.y+2+benifitLabelStatic.frame.height-label.frame.height)
+        self.view.addSubview(label)
+        
+        var label2=UILabel()
+        label2.text="存取灵活"
+        label2.frame=label.textRectForBounds(label.frame, limitedToNumberOfLines: 0)
+        label2.font=UIFont(name: _constant._textFont, size: 12)
+        label2.sizeToFit()
+        label2.frame.origin=CGPoint(x:label.frame.origin.x+label.frame.width+3,y:label.frame.origin.y+label.frame.height-label2.frame.height-1)
+        self.view.addSubview(label2)
+        
+        var line=UIView(frame:CGRectMake(25, label.frame.origin.y+label.frame.height+5, ContentW-50, 0.5))
+        line.backgroundColor=_constant._redColor
+        self.view.addSubview(line)
+        
     }
 }
