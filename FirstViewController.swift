@@ -1,6 +1,7 @@
 
 
 import UIKit
+import Foundation
 
 class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegate {
     
@@ -179,7 +180,7 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         
         var label2=UILabel()
         label2.text="存取灵活"
-        label2.frame=label.textRectForBounds(label.frame, limitedToNumberOfLines: 0)
+        label2.frame=label2.textRectForBounds(label2.frame, limitedToNumberOfLines: 0)
         label2.font=UIFont(name: _constant._textFont, size: 12)
         label2.sizeToFit()
         label2.frame.origin=CGPoint(x:label.frame.origin.x+label.frame.width+3,y:label.frame.origin.y+label.frame.height-label2.frame.height-1)
@@ -189,5 +190,87 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         line.backgroundColor=_constant._redColor
         self.view.addSubview(line)
         
+        //计算剩下的距离...
+        var leftHeight:CGFloat=self.view.frame.height-line.frame.origin.y
+        print("\(leftHeight)")
+        
+        //显示tags...
+        var tagLabels=["本息保障","C轮融资","1元起投","次日到账","新手专享","日限100万"]
+        createTags(CGPoint(x:25,y:line.frame.origin.y),height: leftHeight/4,num: 8,contentStr: tagLabels)
+        
+        
+        var tipsView=UIView(frame: CGRectMake(25,line.frame.origin.y+leftHeight/4+20,5,leftHeight/4-20))
+        tipsView.backgroundColor=_constant._redColor
+        self.view.addSubview(tipsView)
+        
+        /*
+        var wordsLabel=UILabel(frame:CGRectMake(productNameLabel.frame.origin.x, line.frame.origin.y+leftHeight/4+20, self.view.frame.width-25-productNameLabel.frame.origin.x, leftHeight/4))
+        
+        //调整行间距...
+        var words="小编认为相当靠谱的活期理财产品，投资人背景雄厚，平台增速很快，目前仍无提现逾期等不良问题，有望成为行业比较靠前的平台，另外顺便说下，草根的APP设计很精良，看出来比较用心"
+        print("001")
+        var attributedString=NSMutableAttributedString(string: words)
+        var paragraphStyle=NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing=5
+        print("002")
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, words.characters.count))
+        print("003")
+        wordsLabel.attributedText=attributedString
+        //wordsLabel.sizeToFit()
+        wordsLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        wordsLabel.numberOfLines=0
+        wordsLabel.font=UIFont(name: _constant._textFont, size: 14)
+        wordsLabel.backgroundColor=UIColor.grayColor()
+        print("004")
+        self.view.addSubview(wordsLabel)
+        */
+        
+       
+        var wordsLabel=UILabel()
+        
+        //调整行间距...
+        var words="小编认为相当靠谱的活期理财产品，投资人背景雄厚，平台增速很快，目前仍无提现逾期等不良问题，有望成为行业比较靠前的平台，另外顺便说下，草根的APP设计很精良，看出来比较用心"
+        print("001")
+        var attributedString=NSMutableAttributedString(string: words)
+        var paragraphStyle=NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing=10
+        print("002")
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, words.characters.count))
+        print("003")
+        wordsLabel.attributedText=attributedString
+        wordsLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        wordsLabel.numberOfLines=0
+        wordsLabel.font=UIFont(name: _constant._textFont, size: 14)
+        //wordsLabel.backgroundColor=UIColor.grayColor()
+        wordsLabel.frame=wordsLabel.textRectForBounds(CGRectMake(productNameLabel.frame.origin.x, line.frame.origin.y+leftHeight/4+20, self.view.frame.width-25-productNameLabel.frame.origin.x, leftHeight/4), limitedToNumberOfLines: 0)
+        wordsLabel.sizeToFit()
+        wordsLabel.frame.origin=CGPoint(x: productNameLabel.frame.origin.x, y: line.frame.origin.y+leftHeight/4+20)
+        print("004")
+        self.view.addSubview(wordsLabel)
+
+    }
+
+    func createTags(startPoint:CGPoint,height:CGFloat,num:Int,contentStr:[String]){
+        
+        var tagNum=contentStr.count
+        for(var i=0;i<tagNum;i++){
+
+            var unitWidth=(self.view.frame.width-50)/4
+            var unitHeight=height/2-10
+            var x=unitWidth*CGFloat(i%4)+25
+            var y=unitHeight*CGFloat(Int(i/4))+startPoint.y+15
+            var label=UILabel(frame: CGRectMake(x, y, unitWidth-10, unitHeight-3))
+            label.text=contentStr[i]
+            label.font=UIFont(name: _constant._textFont, size: 12)
+            label.textColor=_constant._redColor
+            label.textAlignment = .Center
+            label.layer.borderColor=_constant._redColor.CGColor
+            label.layer.borderWidth=0.3
+            label.layer.cornerRadius=5
+            self.view.addSubview(label)
+            
+        }
+   
     }
 }
+
