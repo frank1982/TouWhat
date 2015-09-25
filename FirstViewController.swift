@@ -123,6 +123,9 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
     func showBestProduct(){
         
         //固定数据...
+        
+        
+        
         var bestProductInfo:Dictionary<String,AnyObject> = Dictionary()
         bestProductInfo["productName"]="草根钱包"
         bestProductInfo["benifit"]="7%"
@@ -199,7 +202,7 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         createTags(CGPoint(x:25,y:line.frame.origin.y),height: leftHeight/4,num: 8,contentStr: tagLabels)
         
         
-        var tipsView=UIView(frame: CGRectMake(25,line.frame.origin.y+leftHeight/4+20,5,leftHeight/4-20))
+        var tipsView=UIView(frame: CGRectMake(25,line.frame.origin.y+leftHeight/4+20,5,leftHeight/8))
         tipsView.backgroundColor=_constant._redColor
         self.view.addSubview(tipsView)
         
@@ -229,13 +232,13 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         var wordsLabel=UILabel()
         
         //调整行间距...
-        var words="小编认为相当靠谱的活期理财产品，投资人背景雄厚，平台增速很快，目前仍无提现逾期等不良问题，有望成为行业比较靠前的平台，另外顺便说下，草根的APP设计很精良，看出来比较用心"
+        var wordsSummary="投资人背景雄厚，平台增速很快，无提现逾期，有望成为领先的P2P平台..."
         print("001")
-        var attributedString=NSMutableAttributedString(string: words)
+        var attributedString=NSMutableAttributedString(string: wordsSummary)
         var paragraphStyle=NSMutableParagraphStyle()
         paragraphStyle.lineSpacing=10
         print("002")
-        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, words.characters.count))
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, wordsSummary.characters.count))
         print("003")
         wordsLabel.attributedText=attributedString
         wordsLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
@@ -247,6 +250,18 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         wordsLabel.frame.origin=CGPoint(x: productNameLabel.frame.origin.x, y: line.frame.origin.y+leftHeight/4+20)
         print("004")
         self.view.addSubview(wordsLabel)
+        
+        var windowHeight=tipsView.frame.origin.y+tipsView.frame.height
+        print("windowHeight is: \(windowHeight)")
+
+        var border=self.view.frame.height-113
+        print("bottom is : \(border)")
+        
+        
+        var btn=UIButton(frame: CGRectMake(25,windowHeight+(border-windowHeight)/2-22, self.view.frame.width-50, 44))
+        btn.setTitle("查看APP", forState: UIControlState.Normal)
+        btn.backgroundColor=_constant._redColor
+        self.view.addSubview(btn)
 
     }
 
@@ -265,7 +280,7 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
             label.textColor=_constant._redColor
             label.textAlignment = .Center
             label.layer.borderColor=_constant._redColor.CGColor
-            label.layer.borderWidth=0.3
+            label.layer.borderWidth=1
             label.layer.cornerRadius=5
             self.view.addSubview(label)
             
