@@ -43,7 +43,7 @@ class AdView2: UIView {
             labelStockValueAOfUpdateDate.text=String(p2pInfoDict["p2pValueAOfUpdateDate"]!)
             labelStockValueAOfUpdateDate.sizeToFit()
             labelStockValueAOfUpdateDate.font=UIFont(name: _constant._digitalFont, size: 16)
-            labelStockValueAOfUpdateDate.frame.origin=CGPoint(x:labelTitleA.frame.origin.x+labelTitleA.frame.width+50,y:25)
+            labelStockValueAOfUpdateDate.frame.origin=CGPoint(x:w/2-labelStockValueAOfUpdateDate.frame.width-25,y:25)
             labelStockValueAOfUpdateDate.textAlignment = .Right
             self.addSubview(labelStockValueAOfUpdateDate)
  
@@ -72,7 +72,7 @@ class AdView2: UIView {
         labelStockValueBOfUpdateDate.text=String(p2pInfoDict["p2pValueBOfUpdateDate"]!)
         labelStockValueBOfUpdateDate.sizeToFit()
         labelStockValueBOfUpdateDate.font=UIFont(name: _constant._digitalFont, size: 16)
-        labelStockValueBOfUpdateDate.frame.origin=CGPoint(x:labelTitleB.frame.origin.x+labelTitleB.frame.width+35,y:25)
+        labelStockValueBOfUpdateDate.frame.origin=CGPoint(x:w-labelStockValueBOfUpdateDate.frame.width-25,y:25)
         labelStockValueBOfUpdateDate.textAlignment = .Right
         self.addSubview(labelStockValueBOfUpdateDate)
         

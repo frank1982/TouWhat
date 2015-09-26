@@ -51,7 +51,7 @@ class AdView1: UIView {
             labelStockValueAOfUpdateDate.text=String(stockInfoDict["stockValueAOfUpdateDate"]!)
             labelStockValueAOfUpdateDate.sizeToFit()
             labelStockValueAOfUpdateDate.font=UIFont(name: _constant._digitalFont, size: 16)
-            labelStockValueAOfUpdateDate.frame.origin=CGPoint(x:labelStockValueA.frame.origin.x+labelStockValueA.frame.width-labelStockValueAOfUpdateDate.frame.width,y:25)
+            labelStockValueAOfUpdateDate.frame.origin=CGPoint(x:w/2-labelStockValueAOfUpdateDate.frame.width-25,y:25)
             labelStockValueAOfUpdateDate.textAlignment = .Right
             labelStockValueAOfUpdateDate.textColor=_constant._redColor
             self.addSubview(labelStockValueAOfUpdateDate)
@@ -90,7 +90,7 @@ class AdView1: UIView {
             labelStockValueBOfUpdateDate.text=String(stockInfoDict["stockValueAOfUpdateDate"]!)
             labelStockValueBOfUpdateDate.sizeToFit()
             labelStockValueBOfUpdateDate.font=UIFont(name: _constant._digitalFont, size: 16)
-            labelStockValueBOfUpdateDate.frame.origin=CGPoint(x:labelStockValueB.frame.origin.x+labelStockValueB.frame.width-labelStockValueBOfUpdateDate.frame.width,y:25)
+            labelStockValueBOfUpdateDate.frame.origin=CGPoint(x:w-labelStockValueBOfUpdateDate.frame.width-25,y:25)
             labelStockValueBOfUpdateDate.textAlignment = .Right
             labelStockValueBOfUpdateDate.textColor=_constant._redColor
             self.addSubview(labelStockValueBOfUpdateDate)

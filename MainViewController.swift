@@ -21,6 +21,33 @@ class MainViewController: UITabBarController{
         self.addChildViewController(nv3)
         self.addChildViewController(nv4)
         
+        //设置tabbarItem...
+        var _constant=Constant()
+
+        nv1.tabBarItem.tag=0
+        
+        //设置一个tabbaritem上的imageView...
+        var tab1ImageView=UIImageView()
+        tab1ImageView.tag=101
+        tab1ImageView.image=UIImage(named: "diamond")
+        tab1ImageView.sizeToFit()
+        tab1ImageView.frame.origin=CGPoint(x:self.view.frame.width*1/8-tab1ImageView.frame.width/2,y:5)
+        nv1.tabBarController?.tabBar.addSubview(tab1ImageView)
+        nv1.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Normal)
+        
+        
+        nv3.tabBarItem.title="黑名单"
+        nv3.tabBarItem.tag=2
+        
+        //设置一个tabbaritem上的imageView...
+        var tab3ImageView=UIImageView()
+        tab3ImageView.tag=103
+        tab3ImageView.image=UIImage(named: "alert")
+        tab3ImageView.sizeToFit()
+        tab3ImageView.frame.origin=CGPoint(x:self.view.frame.width*5/8-tab3ImageView.frame.width/2,y:5)
+        nv3.tabBarController?.tabBar.addSubview(tab3ImageView)
+        nv3.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Normal)
+        
         /*也可以放这里设置...
         nv1.tabBarItem=UITabBarItem(title: "One", image: nil, tag: 0)
         nv2.tabBarItem=UITabBarItem(title: "Two", image: nil, tag: 1)
@@ -30,24 +57,32 @@ class MainViewController: UITabBarController{
        
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-        
-        print("tab bar item clicked...")
+       
+        //先缩小再放大...
+        switch item.tag{
+        case 2:
+            self.view.viewWithTag(103)!.layer.setAffineTransform(CGAffineTransformMakeScale(0.5,0.5))
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(0.3)
+            self.view.viewWithTag(103)!.layer.setAffineTransform(CGAffineTransformMakeScale(1,1))
+            UIView.setAnimationCurve(UIViewAnimationCurve.EaseIn) //设置动画相对速度
+            UIView.commitAnimations()
+        case 0:
+            self.view.viewWithTag(101)!.layer.setAffineTransform(CGAffineTransformMakeScale(0.5,0.5))
+            UIView.beginAnimations(nil, context: nil)
+            UIView.setAnimationDuration(0.1)
+            self.view.viewWithTag(101)!.layer.setAffineTransform(CGAffineTransformMakeScale(1,1))
+            UIView.setAnimationCurve(UIViewAnimationCurve.EaseIn) //设置动画相对速度
+            UIView.commitAnimations()
+   
+        default: break
+            
+        }
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+ }

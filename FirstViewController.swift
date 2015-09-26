@@ -16,7 +16,7 @@ class FirstViewController: UIViewController,UIScrollViewDelegate,UITabBarDelegat
         
         //设置tabbarItem...
         self.navigationController?.tabBarItem.title="最佳产品"
-        self.navigationController?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName : _constant._redColor,NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Selected)
+        //self.navigationController?.tabBarItem.setTitleTextAttributes([NSForegroundColorAttributeName : _constant._redColor,NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Selected)
         self.navigationController?.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: _constant._textFont, size: 10.0)!], forState: UIControlState.Normal)
         
         //显示标题...
